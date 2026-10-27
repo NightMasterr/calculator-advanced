@@ -1,0 +1,6 @@
+{
+  "appId": "com.custom.calculatoradvanced",
+  "appName": "Calculator Advanced",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

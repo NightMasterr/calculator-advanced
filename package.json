@@ -1,0 +1,17 @@
+{
+  "name": "calculator-advanced",
+  "version": "2.0.0",
+  "description": "Minimalist, high-precision offline calculator with pastel history tags.",
+  "main": "www/index.html",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./www/assets/css/tailwind.css --minify"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0",
+    "tailwindcss": "^3.4.0"
+  }
+}

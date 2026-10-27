@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Calculator Advanced</title>
+  <link rel="stylesheet" href="assets/css/tailwind.css">
+</head>
+<body class="bg-page text-ink-main font-digits h-screen w-screen flex flex-col justify-between overflow-hidden select-none">
+
+  <!-- TOP HEADER & MODE SWITCHER -->
+  <header class="p-4 flex justify-between items-center bg-panel border-b border-line shadow-sm">
+    <div class="flex items-center space-x-2">
+      <h1 class="text-xl font-serif font-bold text-dark-slate">Calc</h1>
+      <span class="text-xs bg-mint-btn text-ink-main px-2 py-half rounded-full font-medium">v2.0</span>
+    </div>
+
+    <!-- Mode Selector Pills -->
+    <div class="flex space-x-1 bg-page p-1 rounded-full text-xs font-semibold">
+      <button id="mode-std" class="px-3 py-1 rounded-full bg-dark-slate text-white transition-all">Std</button>
+      <button id="mode-sci" class="px-3 py-1 rounded-full text-ink-muted hover:text-ink-main transition-all">Sci</button>
+      <button id="mode-conv" class="px-3 py-1 rounded-full text-ink-muted hover:text-ink-main transition-all">Conv</button>
+    </div>
+
+    <!-- History Drawer Toggle -->
+    <button id="btn-history-toggle" class="p-2 rounded-full hover:bg-page active:scale-95 transition-all text-ink-main">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- DISPLAY AREA -->
+  <main class="flex-1 flex flex-col justify-end p-6 bg-page space-y-2">
+    <!-- Live Editable Expression Line -->
+    <div class="text-right overflow-x-auto whitespace-nowrap scrollbar-none">
+      <span id="expression-line" class="text-lg text-ink-muted tracking-wider">0</span>
+    </div>
+
+    <!-- Primary Output Display (Equal-width Tabular Digits) -->
+    <div class="text-right overflow-x-auto whitespace-nowrap scrollbar-none">
+      <span id="result-display" class="text-4xl font-serif font-bold text-ink-main tracking-tight">0</span>
+    </div>
+  </main>
+
+  <!-- MEMORY BAR -->
+  <div class="grid grid-cols-5 gap-1 px-4 py-2 bg-panel border-t border-b border-line text-xs font-bold text-ink-muted">
+    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">MC</button>
+    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">MR</button>
+    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">M+</button>
+    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">M−</button>
+    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">MS</button>
+  </div>
+
+  <!-- KEYPAD AREA -->
+  <section class="p-4 bg-panel grid grid-cols-4 gap-3 text-xl font-bold rounded-top-panel shadow-lg">
+    <!-- Row 1 -->
+    <button class="btn-op bg-rose-btn text-red-highlight py-4 rounded-card active:scale-95 transition-all">%</button>
+    <button class="btn-op bg-page text-ink-main py-4 rounded-card active:scale-95 transition-all">CE</button>
+    <button class="btn-op bg-page text-ink-main py-4 rounded-card active:scale-95 transition-all">C</button>
+    <button class="btn-op bg-rose-btn text-red-highlight py-4 rounded-card active:scale-95 transition-all">⌫</button>
+
+    <!-- Row 2 -->
+    <button class="btn-op bg-page text-ink-main py-4 rounded-card active:scale-95 transition-all">1/x</button>
+    <button class="btn-op bg-page text-ink-main py-4 rounded-card active:scale-95 transition-all">x²</button>
+    <button class="btn-op bg-page text-ink-main py-4 rounded-card active:scale-95 transition-all">√</button>
+    <button class="btn-op bg-sky-btn text-ink-main py-4 rounded-card active:scale-95 transition-all">÷</button>
+
+    <!-- Row 3 -->
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">7</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">8</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">9</button>
+    <button class="btn-op bg-sky-btn text-ink-main py-4 rounded-card active:scale-95 transition-all">×</button>
+
+    <!-- Row 4 -->
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">4</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">5</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">6</button>
+    <button class="btn-op bg-sky-btn text-ink-main py-4 rounded-card active:scale-95 transition-all">−</button>
+
+    <!-- Row 5 -->
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">1</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">2</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">3</button>
+    <button class="btn-op bg-sky-btn text-ink-main py-4 rounded-card active:scale-95 transition-all">+</button>
+
+    <!-- Row 6 -->
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">±</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">0</button>
+    <button class="btn-num bg-white-custom text-ink-main py-4 rounded-card shadow-sm active:scale-95 transition-all">.</button>
+    <button id="btn-equals" class="bg-dark-slate text-white py-4 rounded-card shadow-md active:scale-95 transition-all">=</button>
+  </section>
+
+  <!-- SLIDE-DOWN HISTORY DRAWER -->
+  <div id="history-drawer" class="fixed inset-0 bg-page z-50 transform translate-y-full transition-transform flex flex-col p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-serif font-bold text-dark-slate">Calculation History</h2>
+      <button id="btn-history-close" class="p-2 rounded-full hover:bg-line">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- History List -->
+    <div id="history-list" class="flex-1 overflow-y-auto space-y-3 pr-1">
+      <p class="text-center text-ink-muted my-auto">No past calculations yet.</p>
+    </div>
+  </div>
+
+  <script src="assets/js/decimal.js"></script>
+  <script src="assets/js/history.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
