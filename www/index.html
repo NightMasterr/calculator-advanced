@@ -8,18 +8,10 @@
 </head>
 <body class="bg-page text-ink-main font-digits h-screen w-screen flex flex-col justify-between overflow-hidden select-none">
 
-  <!-- TOP HEADER & MODE SWITCHER -->
+  <!-- TOP HEADER (Clean Title & History Toggle Only) -->
   <header class="p-4 flex justify-between items-center bg-panel border-b border-line shadow-sm">
     <div class="flex items-center space-x-2">
-      <h1 class="text-xl font-serif font-bold text-dark-slate">Calc</h1>
-      <span class="text-xs bg-mint-btn text-ink-main px-2 py-half rounded-full font-medium">v2.0</span>
-    </div>
-
-    <!-- Mode Selector Pills -->
-    <div class="flex space-x-1 bg-page p-1 rounded-full text-xs font-semibold">
-      <button id="mode-std" class="px-3 py-1 rounded-full bg-dark-slate text-white transition-all">Std</button>
-      <button id="mode-sci" class="px-3 py-1 rounded-full text-ink-muted hover:text-ink-main transition-all">Sci</button>
-      <button id="mode-conv" class="px-3 py-1 rounded-full text-ink-muted hover:text-ink-main transition-all">Conv</button>
+      <h1 class="text-xl font-serif font-bold text-dark-slate">Calculator</h1>
     </div>
 
     <!-- History Drawer Toggle -->
@@ -42,15 +34,6 @@
       <span id="result-display" class="text-4xl font-serif font-bold text-ink-main tracking-tight">0</span>
     </div>
   </main>
-
-  <!-- MEMORY BAR -->
-  <div class="grid grid-cols-5 gap-1 px-4 py-2 bg-panel border-t border-b border-line text-xs font-bold text-ink-muted">
-    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">MC</button>
-    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">MR</button>
-    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">M+</button>
-    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">M−</button>
-    <button class="py-1 rounded hover:bg-page active:bg-sage-btn">MS</button>
-  </div>
 
   <!-- KEYPAD AREA -->
   <section class="p-4 bg-panel grid grid-cols-4 gap-3 text-xl font-bold rounded-top-panel shadow-lg">
