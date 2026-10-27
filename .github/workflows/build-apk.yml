@@ -47,8 +47,13 @@ jobs:
           chmod +x gradlew
           ./gradlew assembleRelease
 
-      - name: Upload Release APK Artifact
+      - name: Prepare Direct APK Artifact
+        run: |
+          mkdir -p final-apk
+          cp android/app/build/outputs/apk/release/app-release-unsigned.apk final-apk/calculator-advanced.apk
+
+      - name: Upload Direct APK
         uses: actions/upload-artifact@v4
         with:
-          name: calculator-advanced-release-apk
-          path: android/app/build/outputs/apk/release/
+          name: Calculator-Advanced-APK
+          path: final-apk/calculator-advanced.apk
