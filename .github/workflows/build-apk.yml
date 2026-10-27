@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate Auto-Signing Keystore
         run: |
-          keytool -genkey -v -keystore android/app/release.jks -keyalg RSA -keysize 2048 -validity 10000 \
+          keytool -genkey -v -keystore release.jks -keyalg RSA -keysize 2048 -validity 10000 \
           -alias calculator-alias -storepass password123 -keypass password123 \
           -dname "CN=Calculator User, OU=Personal, O=Self, L=Urgench, C=UZ"
 
@@ -52,7 +52,7 @@ jobs:
           cd android
           chmod +x gradlew
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=app/release.jks \
+            -Pandroid.injected.signing.store.file=../release.jks \
             -Pandroid.injected.signing.store.password=password123 \
             -Pandroid.injected.signing.key.alias=calculator-alias \
             -Pandroid.injected.signing.key.password=password123
