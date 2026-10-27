@@ -41,7 +41,17 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
-      - name: Build Release APK
+      - name: Force Debug Signing on Release Build
+        run: |
+          # This injects a standard signing config so the APK comes out signed and installable
+          BUILD_FILE="android/app/build.gradle"
+          if grep -q "signingConfig signingConfigs.debug" "$BUILD_FILE"; then
+            echo "Signing config already present"
+          else
+            sed -i '/buildTypes {/,/release {/s/release {/release {\n            signingConfig signingConfigs.debug/' "$BUILD_FILE"
+          fi
+
+      - name: Build Signed APK
         run: |
           cd android
           chmod +x gradlew
@@ -50,7 +60,12 @@ jobs:
       - name: Prepare Direct APK Artifact
         run: |
           mkdir -p final-apk
-          cp android/app/build/outputs/apk/release/app-release-unsigned.apk final-apk/calculator-advanced.apk
+          # Gradle outputs the signed release APK as app-release.apk when signed via debug config
+          if [ -f android/app/build/outputs/apk/release/app-release.apk ]; then
+            cp android/app/build/outputs/apk/release/app-release.apk final-apk/calculator-advanced.apk
+          else
+            cp android/app/build/outputs/apk/release/app-release-unsigned.apk final-apk/calculator-advanced.apk
+          fi
 
       - name: Upload Direct APK
         uses: actions/upload-artifact@v4
