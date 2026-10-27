@@ -1,4 +1,4 @@
-name: Build Signed Release APK
+name: Build Release APK
 
 on:
   push:
@@ -41,24 +41,14 @@ jobs:
           npx cap add android || true
           npx cap sync android
 
-      - name: Generate Auto-Signing Keystore
-        run: |
-          keytool -genkey -v -keystore release.jks -keyalg RSA -keysize 2048 -validity 10000 \
-          -alias calculator-alias -storepass password123 -keypass password123 \
-          -dname "CN=Calculator User, OU=Personal, O=Self, L=Urgench, C=UZ"
-
-      - name: Sign and Build Release APK with Gradle
+      - name: Build Release APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=../release.jks \
-            -Pandroid.injected.signing.store.password=password123 \
-            -Pandroid.injected.signing.key.alias=calculator-alias \
-            -Pandroid.injected.signing.key.password=password123
+          ./gradlew assembleRelease
 
-      - name: Upload Signed Release APK
+      - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
           name: calculator-advanced-release-apk
-          path: android/app/build/outputs/apk/release/app-release.apk
+          path: android/app/build/outputs/apk/release/
